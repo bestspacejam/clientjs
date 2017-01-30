@@ -23,6 +23,9 @@
 	* GlobalHover plugin v2017-01-30
 	* Проверялось на JQuery 3.1.1
 	*/
+	
+	let global_dispatch_enabled = true;
+	
 	$.fn.globalHover = function(in_handler, out_handler)
 	{
 		let top    = this.offset().top;
@@ -44,6 +47,7 @@
 		$(document).mousemove(function(e)
 		{
 			// $element.text(e.pageX + " " + e.pageY);
+			if (!global_dispatch_enabled) return false;
 			
 			is_mouseover = (e.pageY >= top && e.pageY <= bottom && e.pageX >= left && e.pageX <= right);
 			
@@ -60,4 +64,16 @@
 			prev_mouseover = is_mouseover;
 		});
 	};
+	
+	$.fn.globalHover.disableDispatch = function()
+	{
+		global_dispatch_enabled = false;
+	};
+	
+	$.fn.globalHover.enableDispatch = function()
+	{
+		global_dispatch_enabled = true;
+	};
+	
+	
 }(jQuery));

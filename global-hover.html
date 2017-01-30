@@ -14,9 +14,7 @@
 		// $("#pos").hover(function(e)
 		$("#pos").globalHover(function(e)
 		{
-			// console.log(e);
 			// console.log("IN");
-			
 			// console.log(this);
 			$(this).addClass("hover");
 		},
@@ -26,7 +24,6 @@
 			// console.log(this);
 			$(this).removeClass("hover");
 		});
-		
 		
 		// $("#pos")[0].addEventListener("global-mouseenter", function(e){ console.log(e); $(this).addClass("hover"); });
 		// $("#pos")[0].addEventListener("global-mouseleave", function(e){ console.log(e); $(this).removeClass("hover");});
@@ -39,6 +36,20 @@
 		
 		// $("#pos")[0].addEventListener("mouseenter", function(e){ console.log(e); });
 		// $("#pos")[0].addEventListener("mouseleave", function(e){ console.log(e); });
+		
+		
+		$("#switch_enable").click(function()
+		{
+			$.fn.globalHover.enableDispatch();
+			// console.log("Enabled");
+		});
+		
+		$("#switch_disable").click(function()
+		{
+			$.fn.globalHover.disableDispatch();
+			// console.log("Disabled");
+		});
+		
 	});
 	
 </script>
@@ -59,4 +70,7 @@
 <div style="position: absolute; top: 0; left: 0; height: 100%; width: 100%; background: rgba(0, 0, 0, .15); ">
 	
 	<div style="width: 100px; height: 100px; background: green;">b</div>
+	
+	<button id="switch_enable">Enable Dispatcher</button>
+	<button id="switch_disable">Disable Dispatcher</button>
 </div>
