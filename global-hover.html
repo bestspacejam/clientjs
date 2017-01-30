@@ -4,89 +4,10 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 
 <script type="text/javascript" src="jquery/jquery-3.1.1.js"></script>
+<script type="text/javascript" src="scripts/jquery.globalhover.js"></script>
 
 <script type="text/javascript">
-	(function(window)
-	{
-		try
-		{
-			new MouseEvent('test');
-		}
-		catch (e)
-		{
-			return false; // No need to polyfill
-		}
-
-		// Polyfills DOM4 CustomEvent
-		function MouseEvent(eventType, params)
-		{
-			params = params || { bubbles: false, cancelable: false };
-			var mouseEvent = document.createEvent('MouseEvent');
-			mouseEvent.initMouseEvent(eventType, params.bubbles, params.cancelable, window, 0, 0, 0, 0, 0, false, false, false, false, 0, null);
-
-			return mouseEvent;
-		}
-
-		MouseEvent.prototype = Event.prototype;
-		window.MouseEvent = MouseEvent;
-	})(window);
-
-	(function($)
-	{
-		$.fn.globalHover = function(in_handler, out_handler)
-		{
-			let top    = this.offset().top;
-			let left   = this.offset().left;
-			let bottom = top + this.height();
-			let right  = left + this.width();
-			
-			let $element = this;
-			
-			let prev_mouseover = false;
-			let is_mouseover = false;
-			
-			$(document).mousemove(function(e)
-			{
-				// $element.text(e.pageX + " " + e.pageY);
-				
-				is_mouseover = (e.pageY >= top && e.pageY <= bottom && e.pageX >= left && e.pageX <= right);
-				
-				if (prev_mouseover != is_mouseover)
-				{
-					// console.log(e);
-					
-					// let ev = jQuery.Event("mouseenter");
-					
-					let props = {
-						clientX: e.clientX,
-						clientY: e.clientY
-					};
-					
-					
-					
-					if (is_mouseover)
-					{
-						// in_action
-						// if (in_handler){ in_handler.call($element[0]); }
-						
-						var event = new MouseEvent('global-mouseenter', $.extend({bubbles: false, cancelable: true}, props));
-						$element[0].dispatchEvent(event);
-					}
-					else
-					{
-						// out_action
-						// if (out_handler){ out_handler.call($element[0]); }
-						
-						var event = new MouseEvent('global-mouseleave', $.extend({bubbles: false, cancelable: true}, props));
-						$element[0].dispatchEvent(event);
-					}
-				}
-				
-				prev_mouseover = is_mouseover;
-			});
-		};
-	}(jQuery));
-	
+		
 	$(function()
 	{
 		
@@ -107,8 +28,8 @@
 		});
 		
 		
-		$("#pos")[0].addEventListener("global-mouseenter", function(e){ console.log(e); $(this).addClass("hover"); });
-		$("#pos")[0].addEventListener("global-mouseleave", function(e){ console.log(e); $(this).removeClass("hover");});
+		// $("#pos")[0].addEventListener("global-mouseenter", function(e){ console.log(e); $(this).addClass("hover"); });
+		// $("#pos")[0].addEventListener("global-mouseleave", function(e){ console.log(e); $(this).removeClass("hover");});
 		
 		// $("#pos")[0].addEventListener("global-mouseenter", function(e){ console.log("POS"); });
 		// $("#pos")[0].addEventListener("global-mouseleave", function(e){ console.log("POS");  });
