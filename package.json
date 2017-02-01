@@ -1,0 +1,8 @@
+{
+  "name": "jquery-plugins",
+  "version": "0.0.1",
+  "devDependencies": {
+    "qunitjs": "^2.1.1"
+  },
+  "dependencies": {}
+}

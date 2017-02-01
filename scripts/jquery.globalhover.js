@@ -28,40 +28,46 @@
 	
 	$.fn.globalHover = function(in_handler, out_handler)
 	{
-		let top    = this.offset().top;
-		let left   = this.offset().left;
-		let bottom = top + this.height();
-		let right  = left + this.width();
-		
-		let element = this[0];
-		
-		let prev_mouseover = false;
-		let is_mouseover = false;
-		
-		if (in_handler)
-			element.addEventListener("global-mouseenter", in_handler);
-		
-		if (out_handler)
-			element.addEventListener("global-mouseleave", out_handler);
-		
-		$(document).mousemove(function(e)
+		return this.each(function()
 		{
-			// $element.text(e.pageX + " " + e.pageY);
-			if (!global_dispatch_enabled) return false;
+			let self = $(this);
+			// console.log(this);
 			
-			is_mouseover = (e.pageY >= top && e.pageY <= bottom && e.pageX >= left && e.pageX <= right);
+			let top    = self.offset().top;
+			let left   = self.offset().left;
+			let bottom = top + self.height();
+			let right  = left + self.width();
 			
-			if (prev_mouseover != is_mouseover)
+			let element = this;
+			
+			let prev_mouseover = false;
+			let is_mouseover   = false;
+			
+			if (in_handler)
+				element.addEventListener("global-mouseenter", in_handler);
+			
+			if (out_handler)
+				element.addEventListener("global-mouseleave", out_handler);
+			
+			$(document).mousemove(function(e)
 			{
-				// console.log(e);
-				let event_name = is_mouseover
-					? "global-mouseenter"
-					: "global-mouseleave";
+				// $element.text(e.pageX + " " + e.pageY);
+				if (!global_dispatch_enabled) return false;
 				
-				element.dispatchEvent(new MouseEvent(event_name, {bubbles: false, cancelable: true}));
-			}
-			
-			prev_mouseover = is_mouseover;
+				is_mouseover = (e.pageY >= top && e.pageY <= bottom && e.pageX >= left && e.pageX <= right);
+				
+				if (prev_mouseover != is_mouseover)
+				{
+					// console.log(e);
+					let event_name = is_mouseover
+						? "global-mouseenter"
+						: "global-mouseleave";
+					
+					element.dispatchEvent(new MouseEvent(event_name, {bubbles: false, cancelable: true}));
+				}
+				
+				prev_mouseover = is_mouseover;
+			});
 		});
 	};
 	
@@ -74,6 +80,4 @@
 	{
 		global_dispatch_enabled = true;
 	};
-	
-	
 }(jQuery));
