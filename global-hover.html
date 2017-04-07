@@ -25,6 +25,31 @@
 			$(this).removeClass("hover");
 		});
 		
+		$("#pos2").globalHover(function(e)
+		{
+			// console.log("IN");
+			// console.log(this);
+			$(this).addClass("hover");
+		},
+		function(e)
+		{
+			// console.log("OUT");
+			// console.log(this);
+			$(this).removeClass("hover");
+		});
+		$("#pos3").globalHover(function(e)
+		{
+			// console.log("IN");
+			// console.log(this);
+			$(this).addClass("hover");
+		},
+		function(e)
+		{
+			// console.log("OUT");
+			// console.log(this);
+			$(this).removeClass("hover");
+		});
+		
 		// $("#pos")[0].addEventListener("global-mouseenter", function(e){ console.log(e); $(this).addClass("hover"); });
 		// $("#pos")[0].addEventListener("global-mouseleave", function(e){ console.log(e); $(this).removeClass("hover");});
 		
@@ -60,16 +85,29 @@
 		background: #c00c00;
 		color: #fff;
 	}
+	
+	.list
+	{
+		display: flex;
+	}
 </style>
 </head>
 <body>
 
-<div id="pos" style="position: relative">
-	x <span id="sub">vvvvvvvvvvvvvvvvvvvvv</span>
+<div class="list">
+	<div id="pos" class="link" style="position: relative">
+		x <span id="sub">vvvvvvvvvvvvvvvvvvvvv</span>
+	</div>
+	<div id="pos2" class="link" style="position: relative">
+		x <span id="sub2">ooooooooooooooooooooo</span>
+	</div>
+	<div id="pos3" class="link" style="position: relative">
+		x <span id="sub3">xxxxxxxxxxxxxxxxxxxxx</span>
+	</div>
 </div>
-<div style="position: absolute; top: 0; left: 0; height: 100%; width: 100%; background: rgba(0, 0, 0, .15); ">
+<div style="position: absolute; top: 0; left: 0; height: 100%; width: 100%; background: rgba(0, 0, 0, .25); ">
 	
-	<div style="width: 100px; height: 100px; background: green;">b</div>
+	<div style="width: 100px; height: 100px; background: rgba(128,128,128,.5);">b</div>
 	
 	<button id="switch_enable">Enable Dispatcher</button>
 	<button id="switch_disable">Disable Dispatcher</button>
